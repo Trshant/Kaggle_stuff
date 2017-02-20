@@ -2,8 +2,8 @@ from sklearn.naive_bayes import GaussianNB
 import csv
 import numpy as np
 
-input_trainfilename='/home/rupsa/Desktop/titanic_k/files/train.csv'
-input_testfilename='/home/rupsa/Desktop/titanic_k/files/test.csv'
+input_trainfilename='./files/train.csv'
+input_testfilename='./files/test.csv'
 
 
 
