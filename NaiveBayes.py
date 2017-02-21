@@ -3,70 +3,65 @@ from sklearn.naive_bayes import GaussianNB
 import csv
 import numpy as np
 
+class NaiveBayes_Basic:
+    def readCSV_train(self, filename):
+        self.train_df = pd.read_csv(filename)
+        return self
+    def preprocess_training(self):
+        self.train_df['Age'].fillna(30.0, inplace=True)
+        self.train_df['Sex'] = self.train_df['Sex'].map({'female': 1, 'male': 0})
 
-def train(df):
-   #df['Age'].fillna('30.0', inplace=True )
-    featurespace=[]
-    survival=[]
-    for index, row in df.iterrows():
-        fr=[]
-        fr.append(int(row["Pclass"]))
-        if row["Sex"]=='male':
-            fr.append(0)
-        else:
-            fr.append(1)
-        ##print pd.isnull(df['Age'])
-        fr.append(float(row["Age"]))
-        fr.append(int(row["SibSp"]))
-        fr.append(int(row["Parch"]))
-        fr.append(float(row["Fare"]))
-        featurespace.append(fr)
-        survival.append(row["Survived"])
-    gnb = GaussianNB()
-    nb_classifier= gnb.fit(featurespace, survival)
-    return nb_classifier
+        self.train_df['Pclass'].apply(int)
+        self.train_df['Fare'].apply(int)
+        self.train_df['Parch'].apply(int)
+        self.train_df['Age'].apply(float)
+        self.train_df['SibSp'].apply(int)
+        self.train_df['Sex'].apply(int)
+        return self
+    
+    def train(self):
+        survival=self.train_df['Survived'].values.tolist()
+        featurespace=self.train_df[['Pclass','Sex','SibSp','Age','SibSp','Parch','Fare']].values.tolist()
+        print featurespace
+        gnb = GaussianNB()
+        self.classifier= gnb.fit(featurespace, survival)
+        return self
 
-def test(classifier , df):
-    #df['Age'].fillna('30.0',inplace=True) 
-    #df['Fare'].fillna('35.6', inplace=True ) 
-    featurespace=[]
-    main=[]
-    for index, row in df.iterrows():
-        fr=[]
-        main.append(int(row["PassengerId"]))
-        fr.append(int(row["Pclass"]))
-        if row["Sex"]=='male':
-            fr.append(0)
-        else:
-            fr.append(1)
-        fr.append(float(row["Age"])) 
-        fr.append(int(row["SibSp"])) 
-        fr.append(int(row["Parch"])) 
-        fr.append(float(row["Fare"]))
-        featurespace.append(fr)	
-    results=classifier.predict(featurespace)
-    res=zip(main,results)
-    return res
+    def readCSV_test(self, filename):
+        self.test_df = pd.read_csv(filename)
+        return self
 
-def read_CSV(filename):
-	df = pd.read_csv(filename)
-	return df
+    def preprocess_testing(self):
+        self.test_df['Age'].fillna(30.0, inplace=True)
+        self.test_df['Fare'].fillna(35.6, inplace=True)
+        self.test_df['Sex'] = self.test_df['Sex'].map({'female': 1, 'male': 0})
+        
+        self.test_df['Pclass'].apply(int)
+        self.test_df['Fare'].apply(int)
+        self.test_df['Parch'].apply(int)
+        self.test_df['Age'].apply(float)
+        self.test_df['SibSp'].apply(int)
+        self.test_df['Sex'].apply(int)
+        return self
 
-def mung_na(df,colname,colval_new):
-	df[colname].fillna(colval_new,, inplace=True)
-	return df
-	
-train_df=read_CSV('./files/train.csv')
+    def test(self): 
+        main=self.train_df['PassengerId'].values.tolist()
+        featurespace=self.train_df[['Pclass','Sex','SibSp','Age','SibSp','Parch','Fare']].values.tolist()  
+        self.results=self.classifier.predict(featurespace)
+        self.res=zip(main,self.results)
+        return self
+    def write_csv(self , filename):
+        self.result = [list(elem) for elem in self.res]
+        ofile  = open(filename , "wb")
+        writer = csv.writer(ofile, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+ 
+        for row in self.result:
+            writer.writerow(row)
 
-train_df=mung_na(train_df, 'Age','30.0')
+        ofile.close()
+        return self
 
-
-test_df=read_CSV('./files/test.csv')
-
-test_df=mung_na(test_df, 'Age','30.0')
-test_df=mung_na(test_df, 'Fare','35.6')
-
-classifier = train(train_df)
-tr = test(classifier,test_df)
-print tr
-## TODO : make this into a nice class
+simplebayes = NaiveBayes_Basic()
+tr = simplebayes.readCSV_train('./files/train.csv').preprocess_training().train()
+tr = tr.readCSV_test('./files/test.csv').preprocess_testing().test().write_csv('./files/gen_op.csv')
+print tr.results
