@@ -19,10 +19,9 @@ class NaiveBayes_Basic:
         self.train_df['Sex'].apply(int)
         return self
     
-    def train(self):
-        survival=self.train_df['Survived'].values.tolist()
-        featurespace=self.train_df[['Pclass','Sex','SibSp','Age','SibSp','Parch','Fare']].values.tolist()
-        print featurespace
+    def train(self , indexx , features_list ):
+        survival=self.train_df[indexx].values.tolist()
+        featurespace=self.train_df[ features_list ].values.tolist()
         gnb = GaussianNB()
         self.classifier= gnb.fit(featurespace, survival)
         return self
@@ -44,9 +43,9 @@ class NaiveBayes_Basic:
         self.test_df['Sex'].apply(int)
         return self
 
-    def test(self): 
-        main=self.train_df['PassengerId'].values.tolist()
-        featurespace=self.train_df[['Pclass','Sex','SibSp','Age','SibSp','Parch','Fare']].values.tolist()  
+    def test(self , indexx , features_list ): 
+        main=self.test_df[indexx].values.tolist()
+        featurespace=self.test_df[features_list].values.tolist()  
         self.results=self.classifier.predict(featurespace)
         self.res=zip(main,self.results)
         return self
@@ -62,6 +61,6 @@ class NaiveBayes_Basic:
         return self
 
 simplebayes = NaiveBayes_Basic()
-tr = simplebayes.readCSV_train('./files/train.csv').preprocess_training().train()
-tr = tr.readCSV_test('./files/test.csv').preprocess_testing().test().write_csv('./files/gen_op.csv')
+tr = simplebayes.readCSV_train('./files/train.csv').preprocess_training().train('Survived' ,  ['Pclass','Sex','SibSp','Age','SibSp','Parch','Fare'] )
+tr = tr.readCSV_test('./files/test.csv').preprocess_testing().test( 'PassengerId' , ['Pclass','Sex','SibSp','Age','SibSp','Parch','Fare'] ).write_csv('./files/gen_op.csv')
 print tr.results
