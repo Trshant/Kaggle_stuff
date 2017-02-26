@@ -61,6 +61,6 @@ class NaiveBayes_BasicFns:
         return self
 
 simplebayes = NaiveBayes_BasicFns()
-tr = simplebayes.readCSV_train('./files/train.csv').preprocess('training').train_naive('Survived' ,  ['Pclass','Sex','SibSp','Age','SibSp','Parch','Fare'] )
-tr = tr.readCSV_test('./files/test.csv').preprocess('testing').test_naive( 'PassengerId' , ['Pclass','Sex','SibSp','Age','SibSp','Parch','Fare'] ).write_csv('./files/gen_op.csv')
+tr = simplebayes.readCSV_train('./datasets/train.csv').preprocess('training').train_naive('Survived' ,  ['Pclass','Sex','SibSp','Age','SibSp','Parch','Fare'] )
+tr = tr.readCSV_test('./datasets/test.csv').preprocess('testing').test_naive( 'PassengerId' , ['Pclass','Sex','SibSp','Age','SibSp','Parch','Fare'] ).write_csv('gen_op.csv')
 print tr.results
