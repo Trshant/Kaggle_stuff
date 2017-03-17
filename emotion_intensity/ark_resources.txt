@@ -1,0 +1,32 @@
+ARK Resources
+
+http://www.cs.cmu.edu/~ark/TweetNLP/
+
+
+https://code.google.com/archive/p/ark-tweet-nlp/downloads
+
+
+--Tagger and Tokenizer--
+https://github.com/brendano/ark-tweet-nlp
+
+sudo bash runTagger.sh examples/example_tweets.txt
+
+or java -Xmx500m -jar ark-tweet-nlp-0.3.2.jar examples/example_tweets.txt
+
+
+
+--Dependency Parser:--
+https://github.com/ikekonglp/TweeboParser
+
+if ./install.sh fails with error gflags:
+	wget https://github.com/schuhschuh/gflags/archive/master.zip
+	unzip master.zip
+	cd gflags-master
+	mkdir build && cd build
+	export CXXFLAGS="-fPIC" && cmake .. && make VERBOSE=1
+	make 
+	sudo make install
+	./install.sh
+
+./run.sh sample_input.txt
+
