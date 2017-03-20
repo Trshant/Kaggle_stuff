@@ -12,7 +12,6 @@ for row in rows:
     print(row)
 
 
-
 print("\n\n")
 
 cur.execute("SELECT * FROM tweets WHERE rating > 0.6 AND rating < 0.7 limit 5" )
