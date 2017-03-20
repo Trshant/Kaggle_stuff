@@ -1,4 +1,4 @@
-Add text inside the program at variable 'text'
+Add text inside the progrma at variable 'text'
 Run as python coref.py 1>output_coref.py
 
 Yet to be done : Prevent replacement module from picking up phrase that has already been replaced for further replacement.
