@@ -1,0 +1,27 @@
+*pip istall textblob
+
+*nltk.download()
+ -corpora/sentiwordnet
+ -corpora/wordnet
+
+
+*******line 39, function get_tag_token: change path of ark-nlp runTagger.sh
+
+
+
+What is Subjective-Objective polarity
+– Is the text or language factual or an expression of an opinion?
+The subjectivity is a float within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective.
+
+
+The polarity score is a float within the range [-1.0, 1.0]
+
+
+good read : http://eurolan.info.uaic.ro/html/profs/materials/Ide.pdf
+
+
+Tagger outputs of interest for Wordnet:
+n NOUN
+v VERB
+a ADJECTIVE
+r ADVERB
