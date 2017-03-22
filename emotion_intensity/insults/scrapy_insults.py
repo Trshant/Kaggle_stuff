@@ -24,15 +24,23 @@ def inputhandler_csv(inputfilename):
 	return df
 
 df=inputhandler_csv("/home/rupsa/Desktop/titanic_k/emotion_intensity/basic_insults.csv")
-
-print df
-
+df.columns = ['Insult']
+df['Vulgarity']=pd.Series("", index=df.index)
 for index,r in  df.iterrows():
-	text=r[0].replace(' ','-')
-	url="http://onlineslangdictionary.com/meaning-definition-of/"+text
-	print url
-	response=urllib2.urlopen(url)
-	soup = BeautifulSoup(response, 'html.parser')
-	score= soup.find('span', {'id':'vulgarity-vote-average'}).string
-	print r[0],score
-
+	try:
+		text=r[0].replace(' ','-')
+		url="http://onlineslangdictionary.com/meaning-definition-of/"+text.lower()
+		print index,url
+		response=urllib2.urlopen(url)
+		soup = BeautifulSoup(response, 'html.parser')
+		score= soup.find('span', {'id':'vulgarity-vote-average'}).string
+		score=score.replace('%','')
+		print score=='None'
+		if score=='None':
+				score=0
+	except:
+		score=0
+	df.loc[index]['Vulgarity']=int(score)
+	
+	
+df.to_csv("/home/rupsa/Desktop/titanic_k/emotion_intensity/insults_scored.csv")
