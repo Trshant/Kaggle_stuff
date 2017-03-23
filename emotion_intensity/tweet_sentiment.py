@@ -31,7 +31,7 @@ def get_tag_tokens(tweet):
 	ftemp.write(tweet)
 	ftemp.close()
 	
-	output_of_tagger=subprocess.check_output("bash /home/rupsa/Desktop/titanic_k/emotion_intensity/ark-tweet-nlp-0.3.2/runTagger.sh temp.txt", shell=True)
+	output_of_tagger=subprocess.check_output("bash ./ark-tweet-nlp-0.3.2/runTagger.sh temp.txt", shell=True)
 	
 	output_tagger=output_of_tagger.split('\t')
 	tags=output_tagger[1].split(' ')
@@ -43,13 +43,13 @@ def get_tag_tokens(tweet):
 ########### functions #####################
 
 ################ db #######################
-conn = sqlite3.connect('../emo_int.db')
+conn = sqlite3.connect('emo_int.db')
 
 cur = conn.cursor()
 
 ################ db #######################
 
-cur.execute("SELECT * FROM tweetswithoutstopwords limit 3" )
+cur.execute("SELECT ID , tweet , rating , 1 , removestop FROM tweets limit 3" )
  
 rows = cur.fetchall()
 

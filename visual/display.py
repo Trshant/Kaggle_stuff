@@ -12,4 +12,4 @@ ax.scatter(x, y, c=color, s=500 * size, alpha=0.3)
 ax.grid(color='lightgray', alpha=0.7)
 
 
-mpld3.save_html(fig,'/home/rupsa/Desktop/fig.html')
+mpld3.save_html(fig,'/home/trshant/Documents/learning/Kaggle_stuff/visual/fig.html')
