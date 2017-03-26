@@ -1,0 +1,37 @@
+1.polarity_whole : sentiment polarity of the whole tweet
+
+2.subjectivity_whole : subjectivity of the wholw tweet
+
+3.polarity_remstop : sentiment polarity of the tweet without stopwords
+
+4.subjectivity_remstop :subjectivity of the tweet without stopwords
+
+5.num_tok_whole : number of tokens of the whole tweet
+
+6.num_tok_remstop : number of tokens of the tweet without stopwords
+
+7.vulgar_words : words appearing in the vulgarity list, '/' separated
+
+8.average_vulgarity : (sum of vulgarity of vulgar words) / (total number of vulgar words)
+
+9.anger_words : list of words with emotion anger in lexicon, '/' separated
+
+10.num_anger_words : number of words with emotion anger in lexicon
+
+11.negative_words : list of words with sentiment negative in lexicon, '/' separated
+
+12.num_negative_words : number of words with sentiment negative in lexicon,
+
+13.hashtags : list of hashtags, '/' separated
+
+14.num_hashtags : number of hashtags
+
+15.emo_words : list of words with punctuations eg. heck!, f*ck, @^%#@h#!, #hashtag, @mentions, '/' separated
+
+16.num_emo_words : number of words with punctuations
+
+	
+
+sql: SELECT * FROM tweetswithoutstopwords
+
+to run locally : change line 60,71,75 for paths
