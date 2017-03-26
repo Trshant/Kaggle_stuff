@@ -23,7 +23,7 @@ def inputhandler_csv(inputfilename):
 	df=pd.read_csv(inputfilename,header=None,sep='\t')
 	return df
 
-df=inputhandler_csv("/home/rupsa/Desktop/titanic_k/emotion_intensity/basic_insults.csv")
+df=inputhandler_csv("../list_insults_basic.csv")
 df.columns = ['Insult']
 df['Vulgarity']=pd.Series("", index=df.index)
 for index,r in  df.iterrows():
@@ -43,4 +43,4 @@ for index,r in  df.iterrows():
 	df.loc[index]['Vulgarity']=int(score)
 	
 	
-df.to_csv("/home/rupsa/Desktop/titanic_k/emotion_intensity/insults_scored.csv")
+df.to_csv("../insults_scored.csv")
